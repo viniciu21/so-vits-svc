@@ -144,7 +144,10 @@ dmypy.json
 /workspace.xml
 
 dataset
-dataset_raw
+/dataset_raw
+dataset_raw/*
+sliced_wavs
+rmvpe.zip
 raw
 results
 inference/chunks_temp.json
