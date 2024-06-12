@@ -1,30 +1,33 @@
 from pydub import AudioSegment
 import os
 
-def split_audio(input_file, output_folder, chunk_length_ms=10000):
-    # Carrega o arquivo de áudio
-    audio = AudioSegment.from_wav(input_file)
-    # Calcula o número total de pedaços
-    num_chunks = len(audio) // chunk_length_ms
+def split_audio(file_path, output_dir, chunk_length=10000, min_length=1000):
+    # Carrega o áudio
+    audio = AudioSegment.from_file(file_path)
     
-    # Cria o diretório de saída, se não existir
-    if not os.path.exists(output_folder):
-        os.makedirs(output_folder)
+    # Cria o diretório de saída se não existir
+    if not os.path.exists(output_dir):
+        os.makedirs(output_dir)
     
-    file_name = os.path.splitext(os.path.basename(input_file))[0]
-    print(file_name)
-    # Se houver um restante, adiciona mais um chunk para incluir o restante
-    if len(audio) % chunk_length_ms != 0:
-        num_chunks += 1
-
-    print(num_chunks)
-
-    # Corta e salva cada pedaço
-    for i in range(num_chunks):
-        start_time = i * chunk_length_ms
-        end_time = (i + 1) * chunk_length_ms
+    # Extrai o nome do arquivo sem extensão
+    file_name = os.path.splitext(os.path.basename(file_path))[0]
+    
+    # Calcula o número de pedaços
+    total_length = len(audio)
+    num_chunks = total_length // chunk_length
+    
+    for i in range(num_chunks + 1):
+        start_time = i * chunk_length
+        end_time = start_time + chunk_length
+        
+        # Extrai o pedaço
         chunk = audio[start_time:end_time]
-        chunk.export(os.path.join(output_folder, f"{file_name}_{i}.wav"), format="wav")
+        
+        # Verifica se o pedaço é maior que o tamanho mínimo permitido
+        if len(chunk) >= min_length:
+            chunk_name = f"{output_dir}/{file_name}_chunk_{i + 1}.wav"
+            chunk.export(chunk_name, format="wav")
+            print(f"Exportado {chunk_name}")
 
 
 def process_folder(input_folder, output_folder):
@@ -52,6 +55,6 @@ def process_folder_recursive(input_folder, output_folder):
             split_audio(item_path, output_folder)
 
 # Exemplo de uso
-input_folder = r"/Users/viniciusoliveira/Downloads/cml_tts_dataset_portuguese_v0.2/train/audio"
-output_folder = r"/Users/viniciusoliveira/www/Projects/so-vits-svc/sliced_wavs"
+input_folder = r"/home/viniods/Downloads/cml_tts_dataset_portuguese_v0.2/train/audio"
+output_folder = r"/home/viniods/www/Projects/so-vits-svc/sliced_wavs"
 process_folder_recursive(input_folder, output_folder)

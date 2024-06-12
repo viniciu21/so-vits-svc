@@ -162,7 +162,7 @@ if __name__ == "__main__":
     else:
         mel_extractor = None
     filenames = glob(f"{args.in_dir}/*/*.wav", recursive=True)  # [:10]
-    shuffle(filenames)
+    #shuffle(filenames)
     mp.set_start_method("spawn", force=True)
 
     num_processes = args.num_processes
