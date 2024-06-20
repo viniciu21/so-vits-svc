@@ -13,7 +13,7 @@ def remove_empty_directories(path):
             if len(filenames) < 100 and len(filenames) > 0: 
                 shutil.rmtree(dirpath)
                 print(f"Removido diretório por poucos arquivos: {dirpath}")
-diretorio_destino = r"E:\www\Projects\so-vits-svc\dataset_raw"
+diretorio_destino = r"/home/viniods/www/Projects/so-vits-svc/dataset_raw"
 
                 
 remove_empty_directories(diretorio_destino)

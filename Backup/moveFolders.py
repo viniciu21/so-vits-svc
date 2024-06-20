@@ -42,7 +42,7 @@ def mover_pastas(diretorio_origem, diretorio_destino, pastas_para_mover):
         # Move a pasta
 
 # Define o diretório de origem e de destino
-diretorio_origem = r"E:\www\Projects\so-vits-svc\sliced_wavs"
+diretorio_origem = r"E:\www\Projects\so-vits-svc"
 diretorio_destino = r"E:\www\Projects\so-vits-svc\dataset_raw"
 
 pastas_com_arquivos = encontrar_pastas_com_arquivos(diretorio_origem)

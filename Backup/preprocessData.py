@@ -27,7 +27,7 @@ def split_audio(file_path, output_dir, chunk_length=10000, min_length=1000):
         if len(chunk) >= min_length:
             chunk_name = f"{output_dir}/{file_name}_chunk_{i + 1}.wav"
             chunk.export(chunk_name, format="wav")
-            print(f"Exportado {chunk_name}")
+            #print(f"Exportado {chunk_name}")
 
 
 def process_folder(input_folder, output_folder):
